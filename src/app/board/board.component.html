@@ -1,0 +1,74 @@
+<div cdkDropListGroup>
+  <div class="example-container" *ngFor="let list of jobLists; let i = index">
+    <mat-card style=" background-color: #f3f3f3;">
+      <h2 class="card-header">
+        {{ list.title }}
+        <mat-icon
+          class="icon-delete"
+          aria-hidden="false"
+          aria-label="Delete"
+          color="warn"
+          (click)="deleteList(i)"
+          style="cursor: pointer;"
+          >delete</mat-icon
+        >
+      </h2>
+
+      <div
+        class="example-list"
+        cdkDropList
+        [cdkDropListData]="list.jobs"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div
+          class="example-box"
+          *ngFor="let item of list.jobs; let j = index"
+          [cdkDragData]="item"
+          cdkDrag
+        >
+          {{ item }}
+          <mat-icon
+            class="icon-delete"
+            aria-hidden="false"
+            aria-label="Delete"
+            color="warn"
+            (click)="deleteJob(i, j)"
+            style="cursor: pointer;"
+            >delete</mat-icon
+          >
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <mat-form-field>
+          <input matInput placeholder="New Job" [(ngModel)]="list.newJob" />
+        </mat-form-field>
+
+        <div style="margin-left: 15px">
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="addNewJob(i, list.newJob)"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="add-list-container">
+    <div class="card-footer">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="New List" [(ngModel)]="newList" />
+      </mat-form-field>
+
+      <div style="margin-left: 15px">
+        <button mat-flat-button color="primary" (click)="addNewList()">
+          <mat-icon aria-hidden="false" aria-label="Add">add</mat-icon>
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
